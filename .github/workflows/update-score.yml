@@ -1,0 +1,25 @@
+name: Update Live Cricket Score JSON
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"   # Runs every 1 minute
+  workflow_dispatch:        # Allows manual trigger
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Live Score and Save as JSON
+        run: |
+          curl -s https://allrounderscoreboard.onrender.com/score?id=106673 -o score.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add score.json
+          git commit -m "Auto update score.json [Every 1 min]" || echo "No changes to commit"
+          git push
