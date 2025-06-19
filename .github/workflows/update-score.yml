@@ -14,7 +14,7 @@ jobs:
 
       - name: Fetch Live Score and Save as JSON
         run: |
-          curl -s https://allrounderscoreboard.onrender.com/score?id=106673 -o score.json
+          curl -s https://allrounderscoreboard.onrender.com/score?id=105762 -o score.json
 
       - name: Commit and Push Changes
         run: |
